@@ -28,6 +28,8 @@ const weatherForecast = async function(){
         console.log("GRESKA");
    }
 }
+
+
 //zadatak 2
 
 
