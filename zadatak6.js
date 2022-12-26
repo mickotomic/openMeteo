@@ -7,7 +7,7 @@ const transporter = nodemailer.createTransport({
     
     auth: {
         user: "milorad.tomic.87@gmail.com",
-        pass: "xsmtpsib-47123525deafb536435cb30266c00653b6e80ac9bff9d1c03cae8df72ce44c84-OZ8QjzyEbmf0BHLK",
+        pass: "xsmtpsib-47123525deafb536435cb30266c00653b6e80ac9bff9d1c03cae8df72ce44c84-3XBwnpDW6SG978as",
     },
     tls: {
         rejectUnauthorized: false,
@@ -16,7 +16,7 @@ const transporter = nodemailer.createTransport({
 
 const mail = {
     from: "milorad.tomic.87@gmail.com",
-    to: "milorad.tomic.87@mail.ru",
+    to: "branimirdragicevic1@gmail.com",
     subject: "POZDRAV!",
     text: "Ovim putem saljem csv fajl!",
     attachments: [{
