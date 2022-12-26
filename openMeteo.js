@@ -55,7 +55,7 @@ fs.writeFileSync("Weather.csv", weather1);
          console.log("FAJL NIJE AZURIRAN");
      }  
 }
-//zadatak5
+
 
 
 weatherForecast();
