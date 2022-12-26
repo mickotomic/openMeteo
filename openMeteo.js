@@ -2,7 +2,7 @@ import axios from "axios";
 import fs from "fs";
 
 
-const weatherForecast = async function(){
+async function weatherForecast(){
    
     try {
         const response = await axios.get("https://api.open-meteo.com/v1/forecast?latitude=44.76&longitude=19.21&hourly=temperature_2m,apparent_temperature,snowfall",
@@ -12,63 +12,52 @@ const weatherForecast = async function(){
         const temperature = response.data.hourly.temperature_2m;
         const snowfall = response.data.hourly.snowfall;
 
-        console.log(response);
         
 
         let string = "TIME;APPARENT TEMPERATURE;SNOWFALL\n";
         time.forEach((element, index) => {
             string += `${element};${temperature[index]};${snowfall[index] === 0 ? false : snowfall[index]}\n`;
           });
+        //   console.log(string);
         
-        fs.writeFileSync("Weather.csv", string);
-        
+        return string;
 
 
    } catch (err) { 
         console.log("GRESKA");
-   }
+    }
+    
 }
-
-
-//zadatak 2
-
-
-
-//  async function updateCsv() { 
-//     try { 
-//      let interval = setInterval(() => {
-//             axios.get("https://api.open-meteo.com/v1/forecast?latitude=44.76&longitude=19.21&hourly=temperature_2m,apparent_temperature,snowfall&past_days=5",
-//                 { headers: { "Accept-Encoding": "gzip,deflate,compress" }, });
-            
-//         });
-            
+const weather1 = await weatherForecast();
+fs.writeFileSync("Weather.csv", weather1);
         
-//         const time = interval.data.hourly.time;
-//             const temperature = interval.data.hourly.temperature_2m;
-//             const snowfall = interval.data.hourly.snowfall;
 
-//             console.log(interval);
+//zadatak 4
 
-//             let string1 = "TIME;APPARENT TEMPERATURE;SNOWFALL\n";
-//         time.forEach((element, index) => {
-//             string1 += `${element};${temperature[index]};${snowfall[index] === 0 ? false : snowfall[index]}\n`;
-        
-//         }, 1000);
-        
-//         if (weatherForecast() !== string1) {
-            
-            
-//             fs.writeFileSync("Weather.csv", string1);
-//         }
-//         else { 
-//             console.log("nije prosao uslov");
-//         }
-        
-//     }
-//     catch (err) {
-//         console.log("UPDATE FAILED");
-//     }
-// }
+
+
+ async function updateCsv() { 
+     try {
+         const readWeatherFromFile = fs.readFileSync("Weather.csv").toString();
+         const current = await weatherForecast();
+
+
+
+         if (readWeatherFromFile !== current) {
+             fs.writeFileSync("Weather.csv", current);
+             console.log("FAJL AZURIRAN");
+         }
+          else { 
+             throw new Error("Nije prosao if");
+         }
+     }
+     catch(err) { 
+         console.log("FAJL NIJE AZURIRAN");
+     }  
+}
+//zadatak5
+
+
 weatherForecast();
-//updateCsv();
+setInterval(()=>updateCsv(),3600 );
 
